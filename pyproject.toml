@@ -1,0 +1,10 @@
+[project]
+name = "first-assignment"
+version = "0.1.0"
+description = "N-gram models assignment for computational linguistics course"
+requires-python = ">=3.13"
+dependencies = [
+    "nltk>=3.8",
+    "matplotlib>=3.8",
+    "numpy>=1.26",
+]
