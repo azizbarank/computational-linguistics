@@ -8,7 +8,7 @@ Aziz Baran Kurtulus
 first_assignment/
 ├── problem1_zipf.py          # Problem 1: Zipf's Law analysis
 ├── problem2_generator.py     # Problem 2: N-gram text generation
-├── problem3_pmi.py           # Problem 3: PMI analysis (empty/starter)
+├── problem3_pmi.py           # Problem 3: PMI analysis
 ├── utils.py                  # Shared utility functions
 ├── ngram_model.py           # BasicNgram class (from course materials)
 ├── report.md                # Report with discussions and findings
@@ -39,6 +39,7 @@ first_assignment/
 - matplotlib: 3.8+
 - numpy: 1.26+
 - datasets: 2.14+ (HuggingFace datasets for SETIMES corpus)
+- ruff: 0.14+ (code formatting)
 
 ## Runtime
 - **Problem 1** (problem1_zipf.py): ~2-3 minutes
@@ -49,6 +50,9 @@ first_assignment/
 - **Problem 2** (problem2_generator.py): ~1-2 minutes
   - N-gram model training: ~30-60 seconds (varies by n)
   - Text generation: ~10 seconds
+
+- **Problem 3** (problem3_pmi.py): ~30 seconds
+  - PMI calculation for word pairs: ~30 seconds
 
 ## How to Run
 
