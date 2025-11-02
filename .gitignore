@@ -13,6 +13,7 @@ env/
 
 # uv
 .uv/
+uv.lock
 
 # IDE
 .vscode/
@@ -27,6 +28,13 @@ Thumbs.db
 # Project specific
 *.log
 
-# Large data files (optional - uncomment if needed)
-# data/*.txt
-# data/setimes/
+# Git
+.git/
+
+# Submission-related files (don't include in submission)
+.python-version
+Submission Guidelines.pdf
+
+# Test/example files (not part of submission)
+main.py
+hello.py
