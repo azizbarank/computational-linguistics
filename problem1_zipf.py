@@ -7,7 +7,6 @@ and generates visualizations to investigate Zipf's Law.
 
 import matplotlib.pyplot as plt
 from collections import Counter
-import nltk
 from datasets import load_dataset
 from utils import load_corpus
 
@@ -60,7 +59,7 @@ def save_frequency_list(word_counts, output_path):
         word_counts: Counter object with word frequencies
         output_path: Path to save the frequency list
     """
-    with open(output_path, 'w', encoding='utf-8') as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         for rank, (word, count) in enumerate(word_counts.most_common(), start=1):
             f.write(f"{rank} {word} {count}\n")
 
@@ -75,7 +74,7 @@ def load_setimes_corpus(language):
     Returns:
         Combined text string from all translations
     """
-    print(f"  Loading SETIMES dataset (bg-tr pair)...")
+    print("  Loading SETIMES dataset (bg-tr pair)...")
     dataset = load_dataset("community-datasets/setimes", "bg-tr", split="train")
 
     # Extract all sentences for the specified language
@@ -104,7 +103,7 @@ def plot_frequency_distribution(freq_file, corpus_name, output_file):
     ranks = []
     freqs = []
 
-    with open(freq_file, 'r', encoding='utf-8') as f:
+    with open(freq_file, "r", encoding="utf-8") as f:
         for line in f:
             parts = line.strip().split()
             rank = int(parts[0])
@@ -117,16 +116,16 @@ def plot_frequency_distribution(freq_file, corpus_name, output_file):
 
     # Linear plot
     ax1.plot(ranks, freqs)
-    ax1.set_xlabel('Rank')
-    ax1.set_ylabel('Frequency')
-    ax1.set_title(f'{corpus_name} - Linear Scale')
+    ax1.set_xlabel("Rank")
+    ax1.set_ylabel("Frequency")
+    ax1.set_title(f"{corpus_name} - Linear Scale")
     ax1.grid(True)
 
     # Log-log plot
     ax2.loglog(ranks, freqs)
-    ax2.set_xlabel('Rank (log)')
-    ax2.set_ylabel('Frequency (log)')
-    ax2.set_title(f'{corpus_name} - Log-Log Scale')
+    ax2.set_xlabel("Rank (log)")
+    ax2.set_ylabel("Frequency (log)")
+    ax2.set_title(f"{corpus_name} - Log-Log Scale")
     ax2.grid(True)
 
     plt.tight_layout()
@@ -146,34 +145,56 @@ def main():
     print("\nAnalyzing King James Bible...")
     kjv_freqs = count_word_frequencies("data/kjv.txt")
     save_frequency_list(kjv_freqs, "outputs/kjv_frequencies.txt")
-    print(f"Saved frequency list to outputs/kjv_frequencies.txt ({len(kjv_freqs)} unique words)")
+    print(
+        f"Saved frequency list to outputs/kjv_frequencies.txt ({len(kjv_freqs)} unique words)"
+    )
 
     # Analyze Jungle Book
     print("\nAnalyzing Jungle Book...")
     jb_freqs = count_word_frequencies("data/junglebook.txt")
     save_frequency_list(jb_freqs, "outputs/junglebook_frequencies.txt")
-    print(f"Saved frequency list to outputs/junglebook_frequencies.txt ({len(jb_freqs)} unique words)")
+    print(
+        f"Saved frequency list to outputs/junglebook_frequencies.txt ({len(jb_freqs)} unique words)"
+    )
 
     # Analyze SETIMES Bulgarian
     print("\nAnalyzing SETIMES (Bulgarian)...")
     setimes_bg_text = load_setimes_corpus("bg")
     setimes_bg_freqs = count_word_frequencies_from_text(setimes_bg_text)
     save_frequency_list(setimes_bg_freqs, "outputs/setimes_bg_frequencies.txt")
-    print(f"Saved frequency list to outputs/setimes_bg_frequencies.txt ({len(setimes_bg_freqs)} unique words)")
+    print(
+        f"Saved frequency list to outputs/setimes_bg_frequencies.txt ({len(setimes_bg_freqs)} unique words)"
+    )
 
     # Analyze SETIMES Turkish
     print("\nAnalyzing SETIMES (Turkish)...")
     setimes_tr_text = load_setimes_corpus("tr")
     setimes_tr_freqs = count_word_frequencies_from_text(setimes_tr_text)
     save_frequency_list(setimes_tr_freqs, "outputs/setimes_tr_frequencies.txt")
-    print(f"Saved frequency list to outputs/setimes_tr_frequencies.txt ({len(setimes_tr_freqs)} unique words)")
+    print(
+        f"Saved frequency list to outputs/setimes_tr_frequencies.txt ({len(setimes_tr_freqs)} unique words)"
+    )
 
     # Create plots
     print("\nCreating plots...")
-    plot_frequency_distribution("outputs/kjv_frequencies.txt", "KJV Bible", "outputs/plots/kjv_zipf.png")
-    plot_frequency_distribution("outputs/junglebook_frequencies.txt", "Jungle Book", "outputs/plots/junglebook_zipf.png")
-    plot_frequency_distribution("outputs/setimes_bg_frequencies.txt", "SETIMES Bulgarian", "outputs/plots/setimes_bg_zipf.png")
-    plot_frequency_distribution("outputs/setimes_tr_frequencies.txt", "SETIMES Turkish", "outputs/plots/setimes_tr_zipf.png")
+    plot_frequency_distribution(
+        "outputs/kjv_frequencies.txt", "KJV Bible", "outputs/plots/kjv_zipf.png"
+    )
+    plot_frequency_distribution(
+        "outputs/junglebook_frequencies.txt",
+        "Jungle Book",
+        "outputs/plots/junglebook_zipf.png",
+    )
+    plot_frequency_distribution(
+        "outputs/setimes_bg_frequencies.txt",
+        "SETIMES Bulgarian",
+        "outputs/plots/setimes_bg_zipf.png",
+    )
+    plot_frequency_distribution(
+        "outputs/setimes_tr_frequencies.txt",
+        "SETIMES Turkish",
+        "outputs/plots/setimes_tr_zipf.png",
+    )
 
 
 if __name__ == "__main__":
