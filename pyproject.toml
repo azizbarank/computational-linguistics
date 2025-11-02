@@ -8,4 +8,5 @@ dependencies = [
     "matplotlib>=3.8",
     "numpy>=1.26",
     "datasets>=2.14",
+    "ruff>=0.14.3",
 ]

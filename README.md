@@ -1,7 +1,7 @@
 # README
 
 ## Author
-[Your Name Here]
+Aziz Baran Kurtulus
 
 ## Directory Structure
 ```
@@ -64,22 +64,8 @@ python problem2_generator.py
 ```
 This will train n-gram models (n=2,3,4) and generate text samples in `outputs/generated_text/`.
 
-## External Material
-
-### Problem 2: N-gram Model
-The file `ngram_model.py` contains the `BasicNgram` class provided in the course materials:
-- Source: https://github.com/coli-saar/cl/blob/main/a1/ngram.py
-- This class implements the n-gram language model with conditional probability distributions
-- Used as-is without modifications
-
-### Corpora
-- **King James Bible**: Provided in course materials (tokenized version)
-- **Jungle Book**: Provided in course materials
-- **SETIMES**: Loaded from HuggingFace Datasets (`community-datasets/setimes`, bg-tr pair)
-
-## Additional Notes
-
-- All file paths are defined as relative paths
-- SETIMES corpus is downloaded automatically from HuggingFace on first run
-- Generated outputs are saved in the `outputs/` directory
-- The report file (`report.md`) contains detailed discussions of findings for both problems
+### Problem 3: PMI Analysis
+```bash
+python problem3_pmi.py
+```
+This will calculate PMI scores for word pairs and display the top 20 highest and lowest PMI pairs.

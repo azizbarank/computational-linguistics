@@ -75,3 +75,65 @@ The quality and coherence of the generated text clearly improves as n increases:
 **N=4 (4-grams)**: This produces surprisingly coherent text. Passages like "Wherefore Adonizedec king of Jerusalem" and "Moreover Ruth the Moabitess , the wife of thy bosom" are almost indistinguishable from actual biblical text. The model remembers 3 words of context, which is enough to maintain grammatical structure and some semantic continuity.
 
 The trade-off is that higher n values make the text more "copied" from the original corpus - you can often recognize actual phrases from the Bible. Lower n values are more creative but less coherent. For this corpus size, n=4 seems to hit a sweet spot between coherence and variety.
+
+---
+
+## Problem 3: PMI Analysis
+
+### Methodology
+
+I implemented PMI (Pointwise Mutual Information) analysis to measure statistical dependence between successive word pairs. The PMI formula I used is:
+
+```
+PMI(w1, w2) = log[C(w1,w2) · N / (C(w1) · C(w2))]
+```
+
+Where:
+- C(w1,w2) is the count of the bigram (w1 followed by w2)
+- C(w1) and C(w2) are the individual word counts
+- N is the total number of words in the corpus
+
+I filtered out words that appear less than 10 times to reduce noise from rare words. This left me with 3,752 unique words out of the original ~915k tokens in the KJV Bible.
+
+### Results
+
+**Top 20 Highest PMI Pairs:**
+1. ill favoured (10.14)
+2. Judas Iscariot (10.11)
+3. curious girdle (9.84)
+4. brook Kidron (9.83)
+5. poureth contempt (9.79)
+6. measuring reed (9.75)
+7. divers colours (9.74)
+8. persecution ariseth (9.69)
+9. Mary Magdalene (9.62)
+10. THE THE (9.53)
+... (continued with other high PMI pairs)
+
+**Top 20 Lowest PMI Pairs:**
+1. the the (-7.27)
+2. the him (-6.14)
+3. the them (-6.11)
+4. shall and (-6.06)
+5. . . (-5.96)
+... (continued with other low PMI pairs)
+
+### Discussion
+
+The PMI scores reveal interesting patterns about which word pairs appear together more or less often than expected by chance:
+
+**High PMI pairs** are strongly associated word combinations that appear together much more frequently than random chance would predict. These include:
+- Proper names: "Judas Iscariot", "Mary Magdalene"
+- Fixed biblical phrases: "ill favoured", "curious girdle", "brook Kidron"
+- Common collocations: "fiery furnace", "committeth adultery", "measuring reed"
+
+These pairs make sense - they're specific terms or names that always appear together. You wouldn't expect to see "Judas" followed by random words very often; it's almost always "Judas Iscariot".
+
+**Low PMI pairs** are combinations that appear together less often than expected. These are mostly:
+- Common function words followed by other common words: "the the", "the him", "the them"
+- Frequent words in awkward combinations: "shall and", "thy the"
+- Punctuation issues: ". .", ": ;"
+
+The low PMI pairs are interesting because they show combinations that, despite both words being very common, don't actually appear together that much. For example, "the" is the most common word in English, but "the the" is relatively rare because we don't usually repeat articles. Similarly, "the him" is grammatically awkward in most contexts.
+
+This analysis demonstrates that unigram models (which assume word independence) are oversimplified. Words clearly aren't independent - some pairs are strongly attracted to each other (high PMI) while others avoid each other (low PMI). This justifies using n-gram models that capture these dependencies.
