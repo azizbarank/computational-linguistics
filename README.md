@@ -41,6 +41,24 @@ first_assignment/
 - datasets: 2.14+ (HuggingFace datasets for SETIMES corpus)
 - ruff: 0.14+ (code formatting)
 
+## Setup
+
+### Install Dependencies
+```bash
+pip install nltk matplotlib numpy datasets
+```
+
+Or if you have the `pyproject.toml` file:
+```bash
+pip install -e .
+```
+
+### Download NLTK Data (Required for Problem 2)
+```python
+import nltk
+nltk.download('punkt')
+```
+
 ## Runtime
 - **Problem 1** (problem1_zipf.py): ~2-3 minutes
   - Corpus loading and frequency counting: ~30 seconds
