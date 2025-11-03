@@ -44,6 +44,8 @@ first_assignment/
 ## Setup
 
 ### Install Dependencies
+
+**Option 1: Using pip (recommended)**
 ```bash
 pip install nltk matplotlib numpy datasets
 ```
@@ -51,6 +53,11 @@ pip install nltk matplotlib numpy datasets
 Or if you have the `pyproject.toml` file:
 ```bash
 pip install -e .
+```
+
+**Option 2: Using uv (alternative)**
+```bash
+uv sync
 ```
 
 ### Download NLTK Data (Required for Problem 2)
